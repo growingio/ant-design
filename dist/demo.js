@@ -52838,7 +52838,7 @@
 	      var upperBound = _state.upperBound;
 	
 	      if (nextProps.range) {
-	        var value = nextProps.value;
+	        var value = nextProps.value || [lowerBound, upperBound];
 	        var nextUpperBound = this.trimAlignValue(value[1], nextProps);
 	        var nextLowerBound = this.trimAlignValue(value[0], nextProps);
 	        if (nextLowerBound === lowerBound && nextUpperBound === upperBound) return;
@@ -52851,7 +52851,8 @@
 	          this.props.onChange([nextLowerBound, nextUpperBound]);
 	        }
 	      } else {
-	        var nextValue = this.trimAlignValue(nextProps.value, nextProps);
+	        var value = 'value' in nextProps ? nextProps.value : upperBound;
+	        var nextValue = this.trimAlignValue(value, nextProps);
 	        if (nextValue === upperBound && lowerBound === nextProps.min) return;
 	
 	        this.setState({
@@ -54158,7 +54159,6 @@
 	      duration: duration,
 	      closable: true,
 	      onClose: args.onClose,
-	      key: args.key,
 	      style: {}
 	    });
 	  } else {
@@ -54182,7 +54182,6 @@
 	        duration: duration,
 	        closable: true,
 	        onClose: args.onClose,
-	        key: args.key,
 	        style: {}
 	      });
 	    } else {
@@ -58053,7 +58052,8 @@
 	            { className: 'ant-upload-item-name' },
 	            file.name
 	          ),
-	          _react2['default'].createElement(_icon2['default'], { type: 'cross', onClick: _this.handleClose.bind(_this, file) })
+	          _react2['default'].createElement(_icon2['default'], { type: 'cross', ref: 'theCloseBtn',
+	            onClick: _this.handleClose.bind(_this, file) })
 	        ),
 	        progress
 	      );
@@ -59089,10 +59089,6 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _objectAssign = __webpack_require__(315);
-	
-	var _objectAssign2 = _interopRequireDefault(_objectAssign);
-	
 	function prefixClsFn(prefixCls) {
 	  for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
 	    args[_key - 1] = arguments[_key];
@@ -59109,13 +59105,6 @@
 	  }
 	  var documentMode = document.documentMode || 0;
 	  return documentMode > 9;
-	}
-	
-	function fixControlledValue(value) {
-	  if (typeof value === 'undefined' || value === null) {
-	    return '';
-	  }
-	  return value;
 	}
 	
 	var Group = (function (_React$Component) {
@@ -59188,7 +59177,7 @@
 	  }, {
 	    key: 'renderInput',
 	    value: function renderInput() {
-	      var props = (0, _objectAssign2['default'])({}, this.props);
+	      var props = this.props;
 	      var prefixCls = props.prefixCls;
 	      var inputClassName = prefixClsFn(prefixCls, 'input');
 	      if (!props.type) {
@@ -59206,12 +59195,9 @@
 	      if (placeholder && ieGT9()) {
 	        placeholder = null;
 	      }
-	      if ('value' in props) {
-	        props.value = fixControlledValue(props.value);
-	      }
 	      switch (props.type) {
 	        case 'textarea':
-	          return _react2['default'].createElement('textarea', _extends({}, props, { placeholder: placeholder, className: inputClassName, ref: 'input' }));
+	          return _react2['default'].createElement('textarea', _extends({}, props, { value: props.value || props.defaultValue, placeholder: placeholder, className: inputClassName, ref: 'input' }));
 	        default:
 	          inputClassName = props.className ? props.className : inputClassName;
 	          return _react2['default'].createElement('input', _extends({}, props, { placeholder: placeholder, className: inputClassName, ref: 'input' }));
@@ -62056,7 +62042,7 @@
 			"eslint": "^1.1.0",
 			"eslint-config-airbnb": "^1.0.0",
 			"eslint-plugin-babel": "^2.1.1",
-			"eslint-plugin-markdown-antd": "0.0.0",
+			"eslint-plugin-markdown": "git+https://github.com/ant-design/eslint-plugin-markdown.git",
 			"eslint-plugin-react": "^3.3.1",
 			"expect.js": "~0.3.1",
 			"extract-text-webpack-plugin": "^0.9.1",
@@ -62066,7 +62052,7 @@
 			"json-loader": "^0.5.1",
 			"less": "~2.5.3",
 			"less-loader": "^2.2.0",
-			"lesshint-antd": "~1.1.0",
+			"lesshint": "git+https://github.com/ant-design/lesshint.git",
 			"lodash": "^3.10.0",
 			"nico-jsx": "~0.6.0",
 			"pre-commit": "1.x",
