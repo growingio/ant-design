@@ -39,7 +39,7 @@ module.exports = {
       )
     }, {
       test   : /\.(ttf|eot|svg|woff(2)?)(\?(.)+)?$/,
-      loader : 'file-loader'
+      loader : 'file-loader?name=../style/fonts/[name].[ext]'
     }]
   },
 
