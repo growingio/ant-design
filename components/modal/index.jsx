@@ -56,14 +56,14 @@ let AntModal = React.createClass({
         type="ghost"
         size="large"
         onClick={this.handleCancel}>
-        取消
+        { props.cancelText || '取消' }
       </Button>,
       <Button key="confirm"
         type="primary"
         size="large"
         loading={props.confirmLoading}
         onClick={this.handleOk}>
-        确定
+        { props.okText || '确定' }
       </Button>
     ];
     let footer = props.footer || defaultFooter;
