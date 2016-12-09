@@ -36,7 +36,7 @@
       border-top: 0;
       border-left: 0;
       content: ' ';
-      background-color: @primary-color;
+      background-color: @second-primary-color;
       transform: scale(0);
       opacity: 0;
       transition: transform @radio-duration @ease-in-out-circ, opacity @radio-duration @ease-in-out-circ, background-color @radio-duration @ease-in-out-circ;
@@ -166,29 +166,29 @@
     }
 
     &-checked {
-      background: @primary-color;
-      border-color: @primary-color;
+      background: @second-primary-color;
+      border-color: @second-primary-color;
       color: #fff;
-      box-shadow: -1px 0 0 0 @primary-color;
+      box-shadow: -1px 0 0 0 @second-primary-color;
 
       &:before {
         display: none;
       }
 
       &:first-child {
-        border-color: @primary-color;
+        border-color: @second-primary-color;
       }
 
       &:hover {
-        background: tint(@primary-color, 20%);
-        border-color: tint(@primary-color, 20%);
-        box-shadow: -1px 0 0 0 tint(@primary-color, 20%);
+        background: tint(@second-primary-color, 20%);
+        border-color: tint(@second-primary-color, 20%);
+        box-shadow: -1px 0 0 0 tint(@second-primary-color, 20%);
       }
 
       &:active {
-        background: shade(@primary-color, 5%);
-        border-color: shade(@primary-color, 5%);
-        box-shadow: -1px 0 0 0 shade(@primary-color, 5%);
+        background: shade(@second-primary-color, 5%);
+        border-color: shade(@second-primary-color, 5%);
+        box-shadow: -1px 0 0 0 shade(@second-primary-color, 5%);
       }
     }
 
