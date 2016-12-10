@@ -50,7 +50,7 @@ let FilterMenu = React.createClass({
   },
   render() {
     let column = this.props.column;
-    let prefixCls = 'ant-table';
+    let prefixCls = 'ant-table-filter';
     // default multiple selection in filter dropdown
     let multiple = true;
     if ('filterMultiple' in column) {
@@ -66,7 +66,6 @@ let FilterMenu = React.createClass({
         <Menu
           multiple={multiple}
           prefixCls="ant-dropdown-menu"
-          className="ant-table-filter-dropdown"
           onSelect={this.setSelectedKeys}
           onDeselect={this.setSelectedKeys}
           selectedKeys={this.state.selectedKeys}
