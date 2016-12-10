@@ -2,6 +2,7 @@ import React from 'react';
 import Menu from 'rc-menu';
 import Dropdown from '../dropdown';
 import Icon from '../icon';
+import FilterDropdownMenuWrapper from './FilterDropdownMenuWrapper';
 
 let FilterMenu = React.createClass({
   getInitialState() {
@@ -49,38 +50,49 @@ let FilterMenu = React.createClass({
   },
   render() {
     let column = this.props.column;
+    let prefixCls = 'ant-table';
     // default multiple selection in filter dropdown
     let multiple = true;
     if ('filterMultiple' in column) {
       multiple = column.filterMultiple;
     }
-    let menus = <Menu multiple={multiple}
-                 prefixCls="ant-dropdown-menu"
-                 className="ant-table-filter-dropdown"
-                 onSelect={this.setSelectedKeys}
-                 onDeselect={this.setSelectedKeys}
-                 selectedKeys={this.state.selectedKeys}>
-      {this.renderMenus(column.filters)}
-      <Menu.Divider />
-      <Menu.Item disabled>
-        <a className="ant-table-filter-dropdown-link confirm"
-           style={{
-             cursor: 'pointer',
-             pointerEvents: 'visible'
-           }}
-           onClick={this.handleConfirm}>
-          确定
-        </a>
-        <a className="ant-table-filter-dropdown-link clear"
-           style={{
-             cursor: 'pointer',
-             pointerEvents: 'visible'
-           }}
-           onClick={this.handleClearFilters}>
-          重置
-        </a>
-      </Menu.Item>
-    </Menu>;
+
+    const menus = column.filterDropdown ? (
+      <FilterDropdownMenuWrapper>
+        {column.filterDropdown}
+      </FilterDropdownMenuWrapper>
+    ) : (
+      <FilterDropdownMenuWrapper className={`${prefixCls}-dropdown`}>
+        <Menu
+          multiple={multiple}
+          prefixCls="ant-dropdown-menu"
+          className="ant-table-filter-dropdown"
+          onSelect={this.setSelectedKeys}
+          onDeselect={this.setSelectedKeys}
+          selectedKeys={this.state.selectedKeys}
+        >
+          {this.renderMenus(column.filters)}
+        </Menu>
+        <div className={`${prefixCls}-dropdown-btns`}>
+          <a className="ant-table-filter-dropdown-link confirm"
+             style={{
+               cursor: 'pointer',
+               pointerEvents: 'visible'
+             }}
+             onClick={this.handleConfirm}>
+            确定
+          </a>
+          <a className="ant-table-filter-dropdown-link clear"
+             style={{
+               cursor: 'pointer',
+               pointerEvents: 'visible'
+             }}
+             onClick={this.handleClearFilters}>
+            重置
+          </a>
+        </div>
+      </FilterDropdownMenuWrapper>
+    );
 
     let dropdownSelectedClass = '';
     if (this.props.selectedKeys.length > 0) {
@@ -92,7 +104,7 @@ let FilterMenu = React.createClass({
                      visible={this.state.visible}
                      onVisibleChange={this.onVisibleChange}
                      closeOnSelect={false}>
-      <Icon title="筛选" type="bars" className={dropdownSelectedClass} />
+      <Icon title="筛选" type="filter" className={dropdownSelectedClass} />
     </Dropdown>;
   }
 });
